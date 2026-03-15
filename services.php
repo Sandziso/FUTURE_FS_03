@@ -17,6 +17,7 @@ include 'includes/header.php';
     .pricing-table {
         background: white;
         border-radius: 8px;
+        
         padding: 20px;
         box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     }

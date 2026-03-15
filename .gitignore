@@ -1,0 +1,94 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# PHP specific
+/vendor/
+composer.phar
+composer.lock
+.phpunit.result.cache
+.php_cs.cache
+
+# Environment and configuration files
+.env
+.env.local
+.env.*.local
+/config/db.php
+/config/secrets.php
+*.config.php
+config.php
+
+# Log files
+*.log
+error_log
+logs/
+tmp/
+
+# Upload directories
+/uploads/
+/images/uploads/
+/assets/uploads/
+
+# Cache directories
+/cache/
+/tmp/
+/temp/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE / editor files
+.idea/
+.vscode/
+*.sublime-*
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.swo
+*~
+*.bak
+*.orig
+
+# Node.js (if used)
+/node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Build / distribution directories
+/dist/
+/build/
+/out/
+
+# Project specific (adjust as needed)
+# Ignore any backup SQL dumps
+*.sql
+*.sql.gz
+*.sql.zip
+
+# Ignore any local overrides
+*.local
+local.*
+
+# Ignore files that might contain sensitive info
+*.key
+*.pem
+*.crt
+*.p12
+
+# Ignore system files
+*.pid
+*.socket
+
+# Ignore temporary files created by editors or scripts
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
