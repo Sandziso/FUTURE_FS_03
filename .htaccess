@@ -1,0 +1,107 @@
+# .htaccess for Grass Cutting Services Website
+# Place this file in the root directory of your website.
+
+# Disable directory browsing (prevents users from seeing file lists)
+Options -Indexes
+
+# Set the default directory index
+DirectoryIndex index.php
+
+# ----------------------------------------------------------------------
+# Block access to sensitive files and directories
+# ----------------------------------------------------------------------
+
+# Protect .htaccess and .htpasswd files
+<FilesMatch "^\.ht">
+    Require all denied
+</FilesMatch>
+
+# Block access to hidden files (starting with a dot) like .git, .svn
+RedirectMatch 404 /\..*$
+
+# Protect include files (like config.php, db.php) from direct access
+<FilesMatch "\.(inc|sql|log|ini)$">
+    Require all denied
+</FilesMatch>
+
+# ----------------------------------------------------------------------
+# Custom error pages (create these files in your root directory)
+# ----------------------------------------------------------------------
+ErrorDocument 404 /404.php
+ErrorDocument 500 /500.php
+
+# ----------------------------------------------------------------------
+# Enable compression (gzip) for faster loading
+# ----------------------------------------------------------------------
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml application/rss+xml image/svg+xml
+    # Remove browser bugs for old browsers
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+    Header append Vary User-Agent
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Set caching headers for static resources
+# ----------------------------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    # Default expiration: 1 month after access
+    ExpiresDefault "access plus 1 month"
+    # Images: 1 year
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    # CSS, JavaScript: 1 month
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    # Fonts: 1 year
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Security headers (optional, but recommended)
+# ----------------------------------------------------------------------
+<IfModule mod_headers.c>
+    # Protect against clickjacking
+    Header always append X-Frame-Options SAMEORIGIN
+    # Enable XSS protection
+    Header set X-XSS-Protection "1; mode=block"
+    # Prevent MIME type sniffing
+    Header set X-Content-Type-Options "nosniff"
+    # Referrer policy
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Rewrite rules (mod_rewrite)
+# ----------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # If your site is in a subfolder, uncomment and set the correct path
+    # RewriteBase /subfolder/
+
+    # Force HTTPS (uncomment if you have SSL certificate installed)
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+    # Optionally remove .php extension from URLs (clean URLs)
+    # To access a page like "services" instead of "services.php"
+    # RewriteCond %{REQUEST_FILENAME} !-d
+    # RewriteCond %{REQUEST_FILENAME}\.php -f
+    # RewriteRule ^(.*)$ $1.php [L]
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Disable server signature for security
+# ----------------------------------------------------------------------
+ServerSignature Off
